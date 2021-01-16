@@ -1,0 +1,51 @@
+scr_w = Window.GetWidth();
+scr_h = Window.GetHeight();
+
+mid_x = scr_w / 2;
+mid_y = scr_h / 2;
+
+background_image = Image("images/background.png");
+background = Sprite(background_image);
+
+background.setX(mid_x);
+background.setY(mid_y);
+background.SetZ(-10);
+
+
+logo_image = Image("images/sweetlogo.png");
+logo = Sprite(logo_image);
+
+logo.SetX(mid_x - logo_image.GetWidth() / 2);
+logo.SetY(mid_y - logo_image.GetHeight() / 2);
+logo.SetZ(0);
+
+
+
+spinner_image = Image("images/busy.png");
+spinner = Sprite(spinner_image);
+
+
+spinner.SetX(mid_x - spinner_image.GetWidth() / 2);
+spinner.SetY(scr_h - (scr_h - logo.GetY()) / 3 - spinner_image.GetHeight() / 2);
+
+spinner.SetZ(0);
+
+frame_n = 0;
+
+n_spinner_frames = 24;
+fade_in_frames = 1 * n_spinner_frames;
+
+fun refresh_callback()
+{
+  frame_n += 1;
+
+  if (frame_n <= fade_in_frames) {
+    opacity = frame_n / fade_in_frames;
+    logo.SetOpacity(opacity);
+    spinner.SetOpacity(opacity);
+  }
+
+  spinner.SetImage(spinner_image.Rotate(2 * Math.Pi * ((frame_n % n_spinner_frames) / n_spinner_frames)));
+}
+
+Plymouth.SetRefreshFunction(refresh_callback);

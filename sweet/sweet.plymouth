@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Aperture Science
+Description=Sweet Mars theme for Plymouth
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/sweet
+ScriptFile=/usr/share/plymouth/themes/sweet/sweet.script
