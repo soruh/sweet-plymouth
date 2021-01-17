@@ -30,22 +30,25 @@ spinner.SetY(scr_h - (scr_h - logo.GetY()) / 3 - spinner_image.GetHeight() / 2);
 
 spinner.SetZ(0);
 
-frame_n = 0;
+time = 0;
 
-n_spinner_frames = 24;
-fade_in_frames = 1 * n_spinner_frames;
+ticks_per_second = 50;
+spinner_period = 0.8; // seconds
+
+n_spinner_ticks = spinner_period * ticks_per_second;
+fade_in_ticks = 1 * n_spinner_ticks;
 
 fun refresh_callback()
 {
-  frame_n += 1;
+  time += 1;
 
-  if (frame_n <= fade_in_frames) {
-    opacity = frame_n / fade_in_frames;
+  if (time <= fade_in_ticks) {
+    opacity = time / fade_in_ticks;
     logo.SetOpacity(opacity);
     spinner.SetOpacity(opacity);
   }
 
-  spinner.SetImage(spinner_image.Rotate(2 * Math.Pi * ((frame_n % n_spinner_frames) / n_spinner_frames)));
+  spinner.SetImage(spinner_image.Rotate(2 * Math.Pi * ((time % n_spinner_ticks) / n_spinner_ticks)));
 }
 
 Plymouth.SetRefreshFunction(refresh_callback);
